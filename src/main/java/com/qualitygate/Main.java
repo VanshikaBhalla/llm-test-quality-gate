@@ -11,12 +11,12 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            System.out.println("Usage: java -jar tool.jar <repo-path>");
+            System.out.println("Usage: java -jar <jar> <repo-path>");
             return;
         }
 
         String repoPath = args[0];
-
+        
         String runId = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
 
