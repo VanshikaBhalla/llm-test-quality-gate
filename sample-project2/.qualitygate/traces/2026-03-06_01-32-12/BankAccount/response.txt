@@ -1,0 +1,51 @@
+ Here is a simple JUnit 5 test class for the `BankAccount` class with the given constraints:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
+class BankAccountTest {
+
+    private BankAccount account1;
+    private BankAccount account2;
+
+    @BeforeEach
+    void setUp() {
+        account1 = new BankAccount("123456789", 100.0);
+        account2 = new BankAccount("098765432", 50.0);
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertEquals("123456789", account1.getAccountNumber());
+        assertEquals("098765432", account2.getAccountNumber());
+    }
+
+    @Test
+    void testGetBalance() {
+        assertEquals(100.0, account1.getBalance());
+        assertEquals(50.0, account2.getBalance());
+    }
+
+    @Test
+    void testDeposit() {
+        account1.deposit(50.0);
+        assertEquals(150.0, account1.getBalance());
+    }
+
+    @Test
+    void testWithdraw() {
+        account1.withdraw(20.0);
+        assertEquals(80.0, account1.getBalance());
+    }
+
+    @Test
+    void testTransferTo() {
+        account1.transferTo(account2, 20.0);
+        assertEquals(80.0, account1.getBalance());
+        assertEquals(70.0, account2.getBalance());
+    }
+}
+```

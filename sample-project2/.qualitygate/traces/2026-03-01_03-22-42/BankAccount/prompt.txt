@@ -1,0 +1,37 @@
+Generate a JUnit 5 test class.
+
+STRICT RULES:
+- Class under test: BankAccount
+- Package: com.example
+
+You MUST strictly follow the real constructor signatures defined in the source code.
+
+CRITICAL CONSTRUCTOR RULES:
+- Use ONLY constructors that actually exist in the class.
+- If the class does NOT have a no-argument constructor, DO NOT use one.
+- Do NOT invent default constructors.
+- Do NOT invent setter methods.
+- Do NOT create or assume new APIs.
+- All object instantiation must match the exact constructor signature.
+
+Public methods to test:
+- String getAccountNumber()
+- double getBalance()
+- void deposit(double)
+- void withdraw(double)
+- void transferTo(BankAccount, double)
+
+
+ADDITIONAL RULES:
+- Do NOT call private methods.
+- Do NOT use reflection.
+- Do NOT invent new classes.
+- Match method signatures exactly.
+- Ensure the code compiles under Java 17.
+- Ensure all parentheses and assertions are syntactically correct.
+- Return only valid Java code.
+- No explanations.
+- No markdown.
+- No backticks.
+
+Provide full test class code.

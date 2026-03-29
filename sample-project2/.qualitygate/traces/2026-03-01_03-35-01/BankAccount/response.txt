@@ -1,0 +1,100 @@
+ Here is the JUnit 5 test class for the `BankAccount` class under the specified rules:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class BankAccountTest {
+
+    private BankAccount account;
+
+    @BeforeEach
+    void setUp() {
+        this.account = new BankAccount("123456789", 0.0);
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        String actualAccountNumber = account.getAccountNumber();
+        assertEquals("123456789", actualAccountNumber);
+    }
+
+    @Test
+    void testGetBalance() {
+        double actualBalance = account.getBalance();
+        assertEquals(0.0, actualBalance);
+    }
+
+    @Test
+    void testDeposit() {
+        account.deposit(100.0);
+        double actualBalance = account.getBalance();
+        assertEquals(100.0, actualBalance);
+    }
+
+    @Test
+    void testWithdraw() {
+        account.deposit(100.0);
+        account.withdraw(50.0);
+        double actualBalance = account.getBalance();
+        assertEquals(50.0, actualBalance);
+    }
+
+    @Test
+    void testTransferTo() {
+        BankAccount anotherAccount = new BankAccount("098765432", 0.0);
+        account.deposit(100.0);
+        anotherAccount.deposit(50.0);
+        account.transferTo(anotherAccount, 50.0);
+        double actualAnotherAccountBalance = anotherAccount.getBalance();
+        assertEquals(100.0 + 50.0 - 50.0, actualAnotherAccountBalance);
+    }
+}
+```
+
+Please note that this test class assumes the existence of a `BankAccount` class with the following constructor and methods:
+
+```java
+public class BankAccount {
+    private final String accountNumber;
+    private double balance;
+
+    public BankAccount(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        } else {
+            throw new InsufficientFundsException("Insufficient funds.");
+        }
+    }
+
+    public void transferTo(BankAccount anotherAccount, double amount) {
+        if (amount <= this.balance) {
+            withdraw(amount);
+            anotherAccount.deposit(amount);
+        } else {
+            throw new InsufficientFundsException("Insufficient funds.");
+        }
+    }
+}
+```

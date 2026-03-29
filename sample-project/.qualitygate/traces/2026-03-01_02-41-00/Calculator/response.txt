@@ -1,0 +1,32 @@
+ Here's the JUnit 5 test class for the `Calculator` class:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
+public class CalculatorTest {
+
+    private Calculator calculator;
+
+    @BeforeEach
+    public void setup() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    public void testAdd() {
+        assertEquals(3, calculator.add(1, 2));
+        assertEquals(0, calculator.add(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> calculator.add(Integer.MIN_VALUE, 1));
+    }
+
+    @Test
+    public void testDivide() {
+        assertEquals(2, calculator.divide(4, 2));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(4, 0));
+        assertThrows(IllegalArgumentException.class, () -> calculator.divide(-2147483648, -1));
+    }
+}
+```

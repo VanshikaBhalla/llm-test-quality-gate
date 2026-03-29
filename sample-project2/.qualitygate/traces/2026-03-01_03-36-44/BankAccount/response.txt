@@ -1,0 +1,60 @@
+ Here is the JUnit 5 test class for the `BankAccount` class under the package `com.example`. The constructors, methods, and their signatures are strictly based on the real constructor signatures defined in the source code.
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class BankAccountTest {
+
+    private static final double ACCOUNT_BALANCE = 100.0;
+    private static final String ACCOUNT_NUMBER = "123456789";
+    private static final String ANOTHER_ACCOUNT_NUMBER = "098765432";
+
+    @Test
+    public void testGetAccountNumber() {
+        BankAccount account = new BankAccount(ACCOUNT_NUMBER, ACCOUNT_BALANCE);
+        assertEquals(ACCOUNT_NUMBER, account.getAccountNumber());
+    }
+
+    @Test
+    public void testGetBalance() {
+        BankAccount account = new BankAccount(ACCOUNT_NUMBER, ACCOUNT_BALANCE);
+        assertEquals(ACCOUNT_BALANCE, account.getBalance(), 0.0);
+    }
+
+    @Test
+    public void testDeposit() {
+        BankAccount account = new BankAccount(ACCOUNT_NUMBER, ACCOUNT_BALANCE);
+        double depositAmount = 50.0;
+        account.deposit(depositAmount);
+        assertEquals(ACCOUNT_BALANCE + depositAmount, account.getBalance(), 0.0);
+    }
+
+    @Test
+    public void testWithdraw() {
+        BankAccount account = new BankAccount(ACCOUNT_NUMBER, ACCOUNT_BALANCE);
+        double withdrawAmount = 30.0;
+        assertFalse(account.withdraw(withdrawAmount));
+        assertEquals(ACCOUNT_BALANCE, account.getBalance(), 0.0);
+
+        account.deposit(ACCOUNT_BALANCE * 2); // Deposit double the balance to make sure withdrawal is possible.
+        assertTrue(account.withdraw(withdrawAmount));
+        assertEquals(ACCOUNT_BALANCE - withdrawAmount, account.getBalance(), 0.0);
+    }
+
+    @Test
+    public void testTransferTo() {
+        BankAccount sender = new BankAccount(ACCOUNT_NUMBER, ACCOUNT_BALANCE);
+        BankAccount receiver = new BankAccount(ANOTHER_ACCOUNT_NUMBER, 0.0);
+        double transferAmount = 25.0;
+
+        assertTrue(sender.transferTo(receiver, transferAmount));
+        assertEquals(ACCOUNT_BALANCE - transferAmount, sender.getBalance(), 0.0);
+        assertEquals(transferAmount, receiver.getBalance(), 0.0);
+    }
+}
+```
+
+This test class follows all the provided rules and ensures that the methods under test are working as expected without involving any private methods or reflection.

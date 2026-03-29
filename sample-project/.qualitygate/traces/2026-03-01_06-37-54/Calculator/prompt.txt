@@ -1,0 +1,35 @@
+Generate a JUnit 5 test class.
+
+STRICT RULES:
+- Class under test: Calculator
+- Package: com.example
+
+You MUST follow these exact constructor and method signatures:
+
+Constructors:
+- public Calculator()
+
+Public Methods:
+- int add(int, int)
+- int divide(int, int)
+
+
+CRITICAL:
+- Use ONLY the listed constructors.
+- Use ONLY the listed methods.
+- Respect return types exactly.
+- If method returns void, do NOT use it inside assertEquals.
+- For void methods, verify state using getters.
+- Do NOT invent constructors.
+- Do NOT invent setters.
+- Do NOT create new APIs.
+- Do NOT use reflection.
+- Do NOT modify object structure.
+- Do not use @Override
+
+Return only valid Java code.
+No explanations.
+No markdown.
+No backticks.
+
+Provide full test class code.

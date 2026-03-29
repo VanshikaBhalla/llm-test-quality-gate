@@ -1,0 +1,59 @@
+ Here is a JUnit 5 test class for the `BankAccount` class in the package `com.example`. The test class ensures that the public methods are working correctly without invoking any private methods or using reflection.
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@DisplayName("BankAccount Test")
+public class BankAccountTest {
+
+    private BankAccount account1;
+    private BankAccount account2;
+
+    @BeforeEach
+    void setUp() {
+        account1 = new BankAccount("123456789");
+        account2 = new BankAccount("098765432");
+        account1.deposit(100);
+        account2.deposit(50);
+    }
+
+    @Test
+    @DisplayName("getAccountNumber should return correct account number")
+    void getAccountNumber() {
+        assertEquals("123456789", account1.getAccountNumber());
+        assertEquals("098765432", account2.getAccountNumber());
+    }
+
+    @Test
+    @DisplayName("getBalance should return correct balance")
+    void getBalance() {
+        assertEquals(100, account1.getBalance(), 0.01);
+        assertEquals(50, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    @DisplayName("deposit should add the given amount to balance")
+    void deposit() {
+        account1.deposit(50);
+        assertEquals(150, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    @DisplayName("withdraw should subtract the given amount from balance")
+    void withdraw() {
+        account1.withdraw(20);
+        assertEquals(80, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    @DisplayName("transferTo should transfer the given amount between accounts")
+    void transferTo() {
+        account1.transferTo(account2, 30);
+        assertEquals(70, account1.getBalance(), 0.01);
+        assertEquals(80, account2.getBalance(), 0.01);
+    }
+}
+```

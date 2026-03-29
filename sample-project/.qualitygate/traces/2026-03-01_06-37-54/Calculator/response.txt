@@ -1,0 +1,30 @@
+ Here is the JUnit 5 test class for the Calculator:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
+class CalculatorTest {
+
+    private Calculator calculator;
+
+    @BeforeEach
+    void setUp() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    void testAdd() {
+        int result = calculator.add(2, 3);
+        assertEquals(5, result);
+    }
+
+    @Test
+    void testDivide() {
+        int result = calculator.divide(6, 2);
+        assertEquals(3, result);
+    }
+}
+```

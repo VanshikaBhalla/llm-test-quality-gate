@@ -1,0 +1,53 @@
+ Here's a simple JUnit 5 test class for the `BankAccount` class with the given rules:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BankAccountTest {
+    private BankAccount account;
+
+    @BeforeEach
+    public void setup() {
+        account = new BankAccount("123456789");
+        account.deposit(1000);
+    }
+
+    @Test
+    public void testGetAccountNumber() {
+        assertEquals("123456789", account.getAccountNumber());
+    }
+
+    @Test
+    public void testGetBalance() {
+        assertEquals(1000, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testDeposit() {
+        account.deposit(500);
+        assertEquals(1500, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testWithdraw() {
+        account.withdraw(300);
+        assertEquals(700, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTransferTo() {
+        BankAccount target = new BankAccount("098765432");
+        target.deposit(500);
+
+        account.transferTo(target, 200);
+        assertEquals(800, account.getBalance(), 0.01);
+        assertEquals(700, target.getBalance(), 0.01);
+    }
+}
+```
+
+The test class includes a `BankAccount` instance that gets initialized in the `setup()` method with an account number and initial balance. Then, it tests each public method using JUnit assertions to ensure the expected behavior is met.

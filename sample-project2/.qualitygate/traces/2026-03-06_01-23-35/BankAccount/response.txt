@@ -1,0 +1,64 @@
+ Here is the JUnit 5 test class for the BankAccount class:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BankAccountTest {
+
+    private BankAccount account1;
+    private BankAccount account2;
+
+    @BeforeEach
+    void setUp() {
+        account1 = new BankAccount("123456789", 1000);
+        account2 = new BankAccount("987654321", 500);
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertEquals("123456789", account1.getAccountNumber());
+        assertEquals("987654321", account2.getAccountNumber());
+    }
+
+    @Test
+    void testGetInitialBalance() {
+        assertEquals(1000, account1.getBalance(), 0.01);
+        assertEquals(500, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    void testDeposit() {
+        account1.deposit(500);
+        assertEquals(1500, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    void testWithdraw() {
+        account1.withdraw(200);
+        assertEquals(800, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    void testWithdrawInvalid() {
+        assertThrows(IllegalArgumentException.class, () -> account1.withdraw(3000));
+    }
+
+    @Test
+    void testTransferTo() {
+        account1.transferTo(account2, 200);
+        assertEquals(1200, account1.getBalance(), 0.01);
+        assertEquals(700, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    void testTransferToInvalid() {
+        assertThrows(IllegalArgumentException.class, () -> account1.transferTo(account2, 3000));
+    }
+}
+```

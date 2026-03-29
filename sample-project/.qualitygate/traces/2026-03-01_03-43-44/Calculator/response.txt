@@ -1,0 +1,63 @@
+ Here's the JUnit 5 test class for the Calculator class with the specified rules:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class Calculator {
+    private Calculator calculator;
+
+    @BeforeEach
+    void setup() {
+        this.calculator = new Calculator(2, 3);
+    }
+
+    @Test
+    void testAdd() {
+        int result = calculator.add(1, 4);
+        assertEquals(7, result);
+    }
+
+    @Test
+    void testDivide_NoZeroDenominator() {
+        int result = calculator.divide(5, 2);
+        assertEquals(2, result);
+    }
+
+    @Test
+    void testDivide_ZeroDenominator() {
+        assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+    }
+}
+
+// Calculator class signature from source code (for reference)
+public class Calculator {
+    private int addition;
+    private int subtraction;
+    private int multiplication;
+    private int division;
+
+    public Calculator(int addition, int subtraction, int multiplication, int division) {
+        this.addition = addition;
+        this.subtraction = subtraction;
+        this.multiplication = multiplication;
+        this.division = division;
+    }
+
+    public int add(int a, int b) {
+        return addition + a + b;
+    }
+
+    public int divide(int numerator, int denominator) {
+        if (denominator == 0) {
+            throw new ArithmeticException("Division by zero is not allowed");
+        }
+        return numerator / denominator;
+    }
+}
+```

@@ -1,0 +1,46 @@
+ Here's the JUnit 5 test class for the `Calculator` with the specified rules:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+public class CalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    @Test
+    public void testAdd() {
+        assertEquals(3, calculator.add(1, 2));
+        assertEquals(4, calculator.add(-1, 3));
+        assertEquals(0, calculator.add(-1, -1));
+    }
+
+    @Test
+    public void testDivide() {
+        assertEquals(2, calculator.divide(4, 2));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(4, 0));
+    }
+}
+```
+
+The `Calculator` class under test is assumed to have the following structure:
+
+```java
+package com.example;
+
+public class Calculator {
+
+    public int add(int a, int b) {
+        // ...
+    }
+
+    public int divide(int a, int b) throws ArithmeticException {
+        if (b == 0) throw new ArithmeticException("Division by zero is not allowed");
+        return a / b;
+    }
+}
+```

@@ -1,0 +1,44 @@
+ Here is the JUnit 5 test class for the Calculator with the specified rules:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+public class CalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    @Test
+    @DisplayName("Tests add method with positive integers")
+    public void testAddPositive() {
+        assertEquals(3, calculator.add(1, 2));
+        assertEquals(45, calculator.add(9, 36));
+    }
+
+    @Test
+    @DisplayName("Tests add method with zero as one operand")
+    public void testAddZero() {
+        assertEquals(0, calculator.add(0, 5));
+        assertEquals(0, calculator.add(5, 0));
+    }
+
+    @Test
+    @DisplayName("Tests divide method with no division by zero")
+    public void testDivideNoZero() {
+        assertEquals(2, calculator.divide(4, 2));
+        assertEquals(3, calculator.divide(9, 3));
+    }
+
+    @Test
+    @DisplayName("Tests divide method with division by zero")
+    public void testDivideByZero() {
+        assertThrows(ArithmeticException.class, () -> calculator.divide(5, 0));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(0, -2));
+    }
+}
+```

@@ -1,0 +1,89 @@
+ Here is a JUnit 5 test class for the `BankAccount` class with the specified rules:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class BankAccountTest {
+
+    private BankAccount account;
+
+    @BeforeEach
+    public void setUp() {
+        account = new BankAccount("123456789");
+        account.deposit(1000);
+    }
+
+    @Test
+    public void testGetAccountNumber() {
+        Assertions.assertEquals("123456789", account.getAccountNumber());
+    }
+
+    @Test
+    public void testGetBalance() {
+        Assertions.assertEquals(1000, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testDeposit() {
+        account.deposit(500);
+        Assertions.assertEquals(1500, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testWithdraw() {
+        account.withdraw(200);
+        Assertions.assertEquals(800, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTransferTo() {
+        BankAccount target = new BankAccount("098765432");
+        target.deposit(500);
+
+        account.transferTo(target, 200);
+
+        Assertions.assertEquals(1200, account.getBalance(), 0.01);
+        Assertions.assertEquals(700, target.getBalance(), 0.01);
+    }
+}
+```
+
+Note that this test class assumes a `BankAccount` class with the following structure:
+
+```java
+package com.example;
+
+public class BankAccount {
+
+    private final String accountNumber;
+    private double balance;
+
+    public BankAccount(String accountNumber) {
+        // constructor implementation
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        // deposit logic
+    }
+
+    public void withdraw(double amount) {
+        // withdraw logic
+    }
+
+    public void transferTo(BankAccount target, double amount) {
+        // transferTo logic
+    }
+}
+```

@@ -1,0 +1,57 @@
+ Here is the JUnit 5 test class for the BankAccount:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BankAccount {
+    private BankAccount bankAccount;
+    private static final String ACCOUNT_NUMBER = "123456789";
+    private static final double BALANCE = 1000.0;
+
+    @BeforeEach
+    void setup() {
+        bankAccount = new BankAccount(ACCOUNT_NUMBER, BALANCE);
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertEquals(ACCOUNT_NUMBER, bankAccount.getAccountNumber());
+    }
+
+    @Test
+    void testGetBalance() {
+        assertEquals(BALANCE, bankAccount.getBalance(), 0.0);
+    }
+
+    @Test
+    void testDeposit() {
+        bankAccount.deposit(500.0);
+        assertEquals(1500.0, bankAccount.getBalance(), 0.0);
+    }
+
+    @Test
+    void testWithdraw() {
+        bankAccount.withdraw(600.0);
+        assertEquals(-600.0, bankAccount.getBalance(), 0.0);
+    }
+
+    @Test
+    void testTransferTo() {
+        BankAccount targetAccount = new BankAccount("098765432", 500.0);
+        bankAccount.transferTo(targetAccount, 200.0);
+        assertEquals(800.0, bankAccount.getBalance(), 0.0);
+        assertEquals(700.0, targetAccount.getBalance(), 0.0);
+    }
+
+    @Test
+    void testInsufficientFunds() {
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(2000.0));
+    }
+}
+```

@@ -1,0 +1,65 @@
+ Here's the JUnit 5 test class for the given requirements:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BankAccount {
+    private BankAccount accountUnderTest;
+
+    @BeforeEach
+    void setup() {
+        accountUnderTest = new BankAccount();
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertNotNull(accountUnderTest.getAccountNumber());
+    }
+
+    @Test
+    void testGetBalance() {
+        assertThrows(IllegalStateException.class, accountUnderTest::getBalance);
+    }
+
+    @Test
+    void testDeposit() {
+        accountUnderTest.deposit(100);
+        assertEquals(100, accountUnderTest.getBalance(), 0.0);
+    }
+
+    @Test
+    void testWithdraw_InsufficientFunds() {
+        accountUnderTest.deposit(100);
+        assertThrows(IllegalStateException.class, () -> accountUnderTest.withdraw(200));
+    }
+
+    @Test
+    void testWithdraw_ValidAmount() {
+        accountUnderTest.deposit(200);
+        accountUnderTest.withdraw(100);
+        assertEquals(100, accountUnderTest.getBalance(), 0.0);
+    }
+
+    @Test
+    void testTransferTo_InsufficientFunds() {
+        accountUnderTest.deposit(100);
+        BankAccount targetAccount = new BankAccount();
+        targetAccount.deposit(200);
+        assertThrows(IllegalStateException.class, () -> accountUnderTest.transferTo(targetAccount, 201));
+    }
+
+    @Test
+    void testTransferTo_ValidAmount() {
+        accountUnderTest.deposit(200);
+        BankAccount targetAccount = new BankAccount();
+        targetAccount.deposit(100);
+        accountUnderTest.transferTo(targetAccount, 150);
+        assertEquals(50, accountUnderTest.getBalance(), 0.0);
+        assertEquals(150, targetAccount.getBalance(), 0.0);
+    }
+}
+```

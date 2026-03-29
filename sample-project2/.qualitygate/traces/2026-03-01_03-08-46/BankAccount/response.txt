@@ -1,0 +1,54 @@
+ Here is the JUnit 5 test class for the `BankAccount` class:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
+public class BankAccountTest {
+
+    private BankAccount account;
+
+    @BeforeEach
+    public void setUp() {
+        account = new BankAccount();
+        account.setAccountNumber("123456789");
+        account.deposit(1000);
+    }
+
+    @Test
+    public void testGetAccountNumber() {
+        assertEquals("123456789", account.getAccountNumber());
+    }
+
+    @Test
+    public void testGetBalance() {
+        assertEquals(1000, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testDeposit() {
+        account.deposit(500);
+        assertEquals(1500, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testWithdraw() {
+        account.withdraw(200);
+        assertEquals(800, account.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTransferTo() {
+        BankAccount target = new BankAccount();
+        target.setAccountNumber("098765432");
+        target.deposit(500);
+
+        account.transferTo(target, 300);
+
+        assertEquals(700, account.getBalance(), 0.01);
+        assertEquals(800, target.getBalance(), 0.01);
+    }
+}
+```

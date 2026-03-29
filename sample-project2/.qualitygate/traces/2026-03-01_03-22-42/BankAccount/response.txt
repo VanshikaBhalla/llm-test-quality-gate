@@ -1,0 +1,95 @@
+ Here is a JUnit 5 test class for the `BankAccount` class with the given rules:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BankAccountTest {
+
+    private BankAccount account;
+
+    @BeforeEach
+    void setup() {
+        account = new BankAccount("123456789", 0.0);
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertEquals("123456789", account.getAccountNumber());
+    }
+
+    @Test
+    void testGetBalance() {
+        assertEquals(0.0, account.getBalance(), 0.0);
+    }
+
+    @Test
+    void testDeposit() {
+        account.deposit(100.0);
+        assertEquals(100.0, account.getBalance(), 0.0);
+    }
+
+    @Test
+    void testWithdraw() {
+        account.deposit(200.0);
+        account.withdraw(150.0);
+        assertEquals(50.0, account.getBalance(), 0.0);
+    }
+
+    @Test
+    void testTransferTo() {
+        BankAccount target = new BankAccount("987654321", 100.0);
+        account.deposit(200.0);
+        target.deposit(0.0);
+        account.transferTo(target, 50.0);
+        assertEquals(150.0, account.getBalance(), 0.0);
+        assertEquals(50.0, target.getBalance(), 0.0);
+    }
+}
+
+class BankAccount {
+    private String accountNumber;
+    private double balance;
+
+    public BankAccount(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount must be positive.");
+        }
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        if (amount > balance || amount < 0) {
+            throw new IllegalArgumentException("Invalid withdrawal amount.");
+        }
+        balance -= amount;
+    }
+
+    public void transferTo(BankAccount target, double amount) {
+        if (amount <= 0 || target == null) {
+            throw new IllegalArgumentException("Invalid transfer parameters.");
+        }
+        if (amount > balance) {
+            throw new IllegalStateException("Insufficient funds for the transfer.");
+        }
+        withdraw(amount);
+        target.deposit(amount);
+    }
+}
+```

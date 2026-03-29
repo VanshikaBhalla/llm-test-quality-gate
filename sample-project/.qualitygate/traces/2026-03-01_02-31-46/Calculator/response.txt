@@ -1,0 +1,29 @@
+ Here is a JUnit 5 test class for the `Calculator` class, adhering to your specified rules:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+public class CalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    @Test
+    public void testAdd() {
+        assertEquals(3, calculator.add(1, 2));
+        assertEquals(4, calculator.add(2, 2));
+        assertEquals(0, calculator.add(-1, 1));
+        assertEquals(Integer.MAX_VALUE, calculator.add(Integer.MAX_VALUE, 1));
+    }
+
+    @Test
+    public void testDivide() {
+        assertEquals(2, calculator.divide(4, 2));
+        assertEquals(-2, calculator.divide(4, -2));
+        assertEquals(0, calculator.divide(0, 2));
+        assertEquals(Integer.MIN_VALUE, calculator.divide(-2147483647, -1));
+    }
+}
+```

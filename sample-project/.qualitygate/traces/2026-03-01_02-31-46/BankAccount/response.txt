@@ -1,0 +1,51 @@
+ Here is the JUnit 5 test class for the `BankAccount` class:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
+class BankAccountTest {
+
+    private BankAccount account;
+
+    @BeforeEach
+    void setup() {
+        account = new BankAccount("123456789");
+        account.deposit(1000);
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertEquals("123456789", account.getAccountNumber());
+    }
+
+    @Test
+    void testGetBalance() {
+        assertEquals(1000, account.getBalance(), 0.01);
+    }
+
+    @Test
+    void testDeposit() {
+        account.deposit(500);
+        assertEquals(1500, account.getBalance(), 0.01);
+    }
+
+    @Test
+    void testWithdraw() {
+        account.withdraw(200);
+        assertEquals(800, account.getBalance(), 0.01);
+    }
+
+    @Test
+    void testTransferTo() {
+        BankAccount target = new BankAccount("098765432");
+        account.transferTo(target, 300);
+        assertEquals(700, account.getBalance(), 0.01);
+        assertEquals(300, target.getBalance(), 0.01);
+    }
+}
+```
+
+The test class contains five test methods corresponding to the public methods of the `BankAccount` class: `getAccountNumber()`, `getBalance()`, `deposit()`, `withdraw()`, and `transferTo()`. The setup method `setup()` is annotated with `@BeforeEach` to run before each test method. In this case, it initializes a new `BankAccount` with an account number "123456789" and deposits 1000 dollars into the account.

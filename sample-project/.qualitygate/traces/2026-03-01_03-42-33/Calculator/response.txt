@@ -1,0 +1,33 @@
+ Here's the JUnit 5 test class for the `Calculator` in the package `com.example`. The class under test has two constructors: one with no arguments and another with an `int maxValue` parameter. However, since the class does not have a no-argument constructor, we will only use the second constructor in the test.
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class CalculatorTest {
+    private Calculator calculator;
+
+    @BeforeEach
+    void setUp() {
+        this.calculator = new Calculator(Integer.MAX_VALUE);
+    }
+
+    @Test
+    void testAdd() {
+        assertEquals(3, calculator.add(1, 2));
+        assertEquals(-1, calculator.add(-2, 2));
+        assertEquals(0, calculator.add(-2, -2));
+    }
+
+    @Test
+    void testDivide() {
+        assertEquals(2, calculator.divide(4, 2));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+        assertThrows(IllegalArgumentException.class, () -> calculator.divide(-1, 1));
+    }
+}
+```
+
+Please note that the test class uses JUnit 5's `BeforeEach` annotation to set up the calculator before each test method. The test methods are designed to test the `add()` and `divide()` methods of the Calculator class using the given constructors and their respective signatures.

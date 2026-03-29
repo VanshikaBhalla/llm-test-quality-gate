@@ -1,0 +1,29 @@
+ Here is a JUnit 5 test class for the `Calculator` class with the specified rules:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class CalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    @Test
+    public void testAdd() {
+        assertEquals(3, calculator.add(1, 2));
+        assertEquals(5, calculator.add(-2, 7));
+        assertEquals(0, calculator.add(-3, -3));
+    }
+
+    @Test
+    public void testDivide() {
+        assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+        assertEquals(2, calculator.divide(4, 2));
+        assertEquals(-3, calculator.divide(-6, 2));
+    }
+}
+```
+
+This test class includes two test methods for the `Calculator`'s public methods: `add` and `divide`. The `testAdd` method tests the addition functionality of the `Calculator`, while the `testDivide` method tests the division functionality. It also handles cases where an exception should be thrown (e.g., division by zero).

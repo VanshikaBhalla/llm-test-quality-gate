@@ -1,0 +1,55 @@
+ Here is the JUnit 5 test class for the `Calculator` class under the package `com.example`. The `Calculator` class should have a constructor that takes an integer as a parameter, which will be used in this test case.
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.Arguments;
+import java.util.stream.Stream;
+
+public class CalculatorTest {
+
+    private Calculator calculator;
+
+    public CalculatorTest() {
+        this(0);
+    }
+
+    public CalculatorTest(int seed) {
+        calculator = new Calculator(seed);
+    }
+
+    @Test
+    void testAdd() {
+        Stream.of(
+                Arguments.of(2, 3, 5),
+                Arguments.of(-1, -1, 0),
+                Arguments.of(Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.sum(Integer.MIN_VALUE, Integer.MAX_VALUE))
+        ).forEach(args -> {
+            int expected = (int) args.get(0);
+            int a = (int) args.get(1);
+            int b = (int) args.get(2);
+            calculator = new Calculator(a + b);
+            assertEquals(expected, calculator.add(a, b));
+        });
+    }
+
+    @Test
+    void testDivide() {
+        Stream.of(
+                Arguments.of(4, 2, 2),
+                Arguments.of(5, -2, -2),
+                Arguments.of(-8, 4, -2)
+        ).forEach(args -> {
+            int expected = (int) args.get(0);
+            int dividend = (int) args.get(1);
+            int divisor = (int) args.get(2);
+            calculator = new Calculator(dividend);
+            assertEquals(expected, calculator.divide(dividend, divisor));
+        });
+    }
+}
+```
+
+This test class initializes a `Calculator` object with a seed value and uses it to perform addition and division tests using different input arguments. The test data covers some edge cases like negative numbers, maximum integer values, and minimum integer values.

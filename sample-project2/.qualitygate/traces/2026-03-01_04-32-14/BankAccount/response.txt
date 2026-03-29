@@ -1,0 +1,54 @@
+ Here is the JUnit 5 test class for BankAccount:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class BankAccountTest {
+    private BankAccount account1;
+    private BankAccount account2;
+
+    @BeforeEach
+    public void setUp() {
+        account1 = new BankAccount("123456789", 100);
+        account2 = new BankAccount("987654321", 50);
+    }
+
+    @Test
+    public void testGetters() {
+        assertEquals("123456789", account1.getAccountNumber());
+        assertEquals(100, account1.getBalance(), 0.01);
+        assertEquals("987654321", account2.getAccountNumber());
+        assertEquals(50, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testDeposit() {
+        account1.deposit(50);
+        assertEquals(150, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testWithdraw() {
+        account2.withdraw(30);
+        assertEquals(20, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTransferTo_success() {
+        account1.transferTo(account2, 20);
+        assertEquals(80, account1.getBalance(), 0.01);
+        assertEquals(70, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTransferTo_insufficientFunds() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> account1.transferTo(account2, 151));
+        assertEquals("Insufficient funds", exception.getMessage());
+    }
+}
+```

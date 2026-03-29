@@ -1,0 +1,60 @@
+ Here is the JUnit 5 test class for BankAccount:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class BankAccountTest {
+
+    private BankAccount account1;
+    private BankAccount account2;
+
+    @BeforeEach
+    public void setup() {
+        account1 = new BankAccount("123456789", 100);
+        account2 = new BankAccount("987654321", 50);
+    }
+
+    @Test
+    public void testGetAccountNumber() {
+        Assertions.assertEquals("123456789", account1.getAccountNumber());
+        Assertions.assertEquals("987654321", account2.getAccountNumber());
+    }
+
+    @Test
+    public void testGetBalance() {
+        Assertions.assertEquals(100, account1.getBalance(), 0.01);
+        Assertions.assertEquals(50, account2.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testDeposit() {
+        account1.deposit(50);
+        AccountAccount expected = new BankAccount("123456789", 150);
+        Assertions.assertEquals(expected.getAccountNumber(), account1.getAccountNumber());
+        Assertions.assertEquals(150, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testWithdraw() {
+        account1.withdraw(25);
+        AccountAccount expected = new BankAccount("123456789", 75);
+        Assertions.assertEquals(expected.getAccountNumber(), account1.getAccountNumber());
+        Assertions.assertEquals(75, account1.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTransferTo() {
+        account1.transferTo(account2, 25);
+        AccountAccount expected1 = new BankAccount("123456789", 75);
+        AccountAccount expected2 = new BankAccount("987654321", 75);
+        Assertions.assertEquals(expected1.getAccountNumber(), account1.getAccountNumber());
+        Assertions.assertEquals(expected1.getBalance(), account1.getBalance(), 0.01);
+        Assertions.assertEquals(expected2.getAccountNumber(), account2.getAccountNumber());
+        Assertions.assertEquals(expected2.getBalance(), account2.getBalance(), 0.01);
+    }
+}
+```

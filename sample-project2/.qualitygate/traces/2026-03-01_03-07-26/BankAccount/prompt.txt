@@ -1,0 +1,22 @@
+Generate a JUnit 5 test class.
+
+STRICT RULES:
+- Class under test: BankAccount
+- Package: com.example
+- Only test the following public methods:
+- String getAccountNumber()
+- double getBalance()
+- void deposit(double)
+- void withdraw(double)
+- void transferTo(BankAccount, double)
+
+- Do NOT call private methods.
+- Do NOT use reflection.
+- Do NOT invent new classes.
+- Match method signatures exactly.
+- Return only valid Java code.
+- No explanations.
+- No markdown.
+- No backticks.
+
+Provide full test class code.

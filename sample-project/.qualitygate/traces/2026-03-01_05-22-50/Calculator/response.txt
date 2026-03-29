@@ -1,0 +1,25 @@
+ Here is the JUnit 5 test class for the given specifications:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class CalculatorTest {
+
+    private Calculator calculator = new Calculator();
+
+    @Test
+    public void testAdd() {
+        int result = calculator.add(3, 4);
+        Assertions.assertEquals(7, result);
+    }
+
+    @Test
+    public void testDivide() {
+        int result = calculator.divide(6, 2);
+        Assertions.assertEquals(3, result);
+    }
+}
+```

@@ -1,0 +1,53 @@
+ Here is a simple JUnit 5 test class for the `BankAccount` class with the specified rules:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class BankAccountTest {
+
+    private BankAccount account;
+
+    @BeforeEach
+    void setup() {
+        account = new BankAccount();
+    }
+
+    @Test
+    void testGetAccountNumber() {
+        assertNull(account.getAccountNumber());
+    }
+
+    @Test
+    void testGetBalance() {
+        assertEquals(0.0, account.getBalance(), 0.0);
+    }
+
+    @Test
+    void testDeposit() {
+        account.deposit(100.0);
+        assertEquals(100.0, account.getBalance(), 0.0);
+    }
+
+    @Test
+    void testWithdraw() {
+        account.deposit(100.0);
+        account.withdraw(50.0);
+        assertEquals(50.0, account.getBalance(), 0.0);
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(-100.0));
+    }
+
+    @Test
+    void testTransferTo() {
+        BankAccount target = new BankAccount();
+        account.deposit(100.0);
+        target.deposit(50.0);
+        account.transferTo(target, 50.0);
+        assertEquals(50.0, account.getBalance(), 0.0);
+        assertEquals(100.0, target.getBalance(), 0.0);
+    }
+}
+```

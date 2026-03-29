@@ -1,0 +1,46 @@
+ Here is the JUnit 5 test class for the `Calculator` class:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@DisplayName("Calculator tests")
+public class CalculatorTest {
+
+    private Calculator calculator;
+
+    @BeforeEach
+    void setUp() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    @DisplayName("test add method with positive numbers")
+    void testAddPositiveNumbers() {
+        int result = calculator.add(2, 3);
+        assertEquals(5, result);
+    }
+
+    @Test
+    @DisplayName("test add method with negative numbers")
+    void testAddNegativeNumbers() {
+        int result = calculator.add(-2, -3);
+        assertEquals(5, result);
+    }
+
+    @Test
+    @DisplayName("test divide method with positive numbers")
+    void testDividePositiveNumbers() {
+        int result = calculator.divide(6, 3);
+        assertEquals(2, result);
+    }
+
+    @Test
+    @DisplayName("test divide method with zero denominator")
+    void testDivideByZero() {
+        assertThrows(ArithmeticException.class, () -> calculator.divide(5, 0));
+    }
+}
+```

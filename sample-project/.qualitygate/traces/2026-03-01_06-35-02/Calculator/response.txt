@@ -1,0 +1,44 @@
+ Here is the JUnit 5 test class for the Calculator class:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+class CalculatorTest {
+
+    @Test
+    void testAdd() {
+        Calculator calculator = new Calculator();
+        assertEquals(5, calculator.add(2, 3));
+        assertEquals(10, calculator.add(4, 6));
+        assertEquals(-3, calculator.add(-2, -1));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"0, 5, 5", "10, 3, 13", "-8, -3, -11"})
+    void testAddWithParameters(int a, int b, int expected) {
+        Calculator calculator = new Calculator();
+        assertEquals(expected, calculator.add(a, b));
+    }
+
+    @Test
+    void testDivide() {
+        Calculator calculator = new Calculator();
+        assertEquals(2, calculator.divide(4, 2));
+        assertEquals(3, calculator.divide(9, 3));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(5, 0));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {Integer.MIN_VALUE, -2147483648})
+    void testDivideWithNegativeDenominator(int denominator) {
+        Calculator calculator = new Calculator();
+        assertThrows(ArithmeticException.class, () -> calculator.divide(-1, denominator));
+    }
+}
+```

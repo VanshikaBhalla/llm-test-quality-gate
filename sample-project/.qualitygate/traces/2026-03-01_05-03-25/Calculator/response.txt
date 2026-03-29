@@ -1,0 +1,44 @@
+ Here is the JUnit 5 test class for the given specifications:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+class CalculatorTest {
+
+    @Test
+    void testAdd() {
+        Calculator calculator = new Calculator();
+        assertEquals(5, calculator.add(2, 3));
+        assertEquals(-1, calculator.add(-2, 3));
+        assertEquals(0, calculator.add(-2, -2));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints={Integer.MIN_VALUE, 0})
+    void testAddWithZeroOrMinusOne(int a) {
+        Calculator calculator = new Calculator();
+        assertThrows(ArithmeticException.class, () -> calculator.add(a, -1));
+    }
+
+    @Test
+    void testDivide() {
+        Calculator calculator = new Calculator();
+        assertEquals(2, calculator.divide(4, 2));
+        assertEquals(-2, calculator.divide(4, -2));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints={0, Integer.MIN_VALUE})
+    void testDivideByZeroOrMinusOne(int b) {
+        Calculator calculator = new Calculator();
+        assertThrows(ArithmeticException.class, () -> calculator.divide(1, b));
+    }
+}
+```

@@ -1,0 +1,53 @@
+ Here is the JUnit 5 test class for the `Calculator` class:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+class CalculatorTest {
+
+    @Test
+    void testAdd() {
+        Calculator calculator = new Calculator();
+        int result = calculator.add(3, 4);
+        assertEquals(7, result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"5, 2, 7", "10, -3, 7", "-6, -5, -11"})
+    void testAddWithParameters(int a, int b, int expected) {
+        Calculator calculator = new Calculator();
+        int result = calculator.add(a, b);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testDivide() {
+        Calculator calculator = new Calculator();
+        int result = calculator.divide(10, 2);
+        assertEquals(5, result);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, Integer.MIN_VALUE})
+    void testDivideWithDenominatorZeroOrMinusOne(int denominator) {
+        Calculator calculator = new Calculator();
+        assertThrows(ArithmeticException.class, () -> calculator.divide(10, denominator));
+    }
+
+    @Test
+    void testCalculatorState() {
+        Calculator calculator = new Calculator();
+        assertEquals(0, calculator.getResult());
+        calculator.add(3, 4);
+        assertEquals(7, calculator.getResult());
+        calculator.divide(7, 2);
+        assertEquals(3, calculator.getResult());
+    }
+}
+```

@@ -1,0 +1,33 @@
+ Here is the JUnit 5 test class for the Calculator:
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@DisplayName("Calculator tests")
+public class CalculatorTest {
+
+    private Calculator calculator;
+
+    @BeforeEach
+    void setup() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    @DisplayName("Tests add method with valid inputs")
+    void testAddValidInputs() {
+        int result = calculator.add(2, 3);
+        assertEquals(5, result);
+    }
+
+    @Test
+    @DisplayName("Tests divide method with valid inputs")
+    void testDivideValidInputs() {
+        int result = calculator.divide(6, 3);
+        assertEquals(2, result);
+    }
+}
+```
