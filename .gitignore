@@ -1,0 +1,14 @@
+# Maven
+target/
+dependency-reduced-pom.xml
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Logs
+*.log
