@@ -98,7 +98,8 @@ mvn clean install
 Run the tool using:
 
 ```
-java -cp target/classes com.qualitygate.Main
+cd ../sample-project
+mvn exec:java -Dexec.mainClass="com.qualitygate.Main"
 ```
 
 ---
