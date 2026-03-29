@@ -1,14 +1,13 @@
 # Maven
 target/
-dependency-reduced-pom.xml
+**/target/
+
+# Tool temp files
+.qualitygate/
 
 # IDE
 .vscode/
 .idea/
-*.iml
 
 # OS
 .DS_Store
-
-# Logs
-*.log
