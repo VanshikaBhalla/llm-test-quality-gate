@@ -3,41 +3,28 @@ package com.example;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class CalculatorTest {
+    private Calculator calculator;
 
-    private Calculator calculator = new Calculator();
+    @BeforeEach
+    void setup() {
+        calculator = new Calculator();
+    }
 
     @Test
     void testAdd() {
-        assertEquals(3, calculator.add(1, 2));
-        assertEquals(4, calculator.add(-1, 3));
-        assertEquals(0, calculator.add(-1, -1));
-    }
-
-    @ParameterizedTest(name = "add({0}, {1}) should return {2}")
-    @CsvSource({"1, 2, 3", "-1, 3, 2", "-1, -1, 0"})
-    void testAddParams(int a, int b, int expectedResult) {
-        assertEquals(expectedResult, calculator.add(a, b));
+        assertEquals(5, calculator.add(2, 3));
+        assertEquals(-1, calculator.add(-2, 1));
+        assertEquals(0, calculator.add(0, 0));
     }
 
     @Test
     void testDivide() {
         assertEquals(2, calculator.divide(4, 2));
-        assertThrows(ArithmeticException.class, () -> calculator.divide(4, 0));
-    }
-
-    @ParameterizedTest(name = "divide({0}, {1}) should return {2} or throw ArithmeticException")
-    @ValueSource(ints = {1, 2, 3, 4})
-    void testDivideParams(int dividend, int divisor, int expectedResult) {
-        if (divisor == 0) {
-            assertThrows(ArithmeticException.class, () -> calculator.divide(dividend, divisor));
-        } else {
-            assertEquals(expectedResult, calculator.divide(dividend, divisor));
-        }
+        assertThrows(ArithmeticException.class, () -> calculator.divide(2, 0));
+        assertThrows(IllegalArgumentException.class, () -> calculator.divide(-2, -0)); // negative divisor with negative zero
     }
 }
